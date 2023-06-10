@@ -7,16 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table (name = "Students")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class StudentEntity {
 	@ Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "Admission_Number")
 	private Long id;
-	@Column (name = "Family_Name")
+	@Column (name = "First_Name")
 	private String surname;
-	@Column (name = "Name")
+	@Column (name = "Last_Name")
 	private String name;
 	@Column (name = "Father_Name")
 	private String fatherName;
@@ -60,10 +63,16 @@ public class StudentEntity {
 	public Long getId() {
 		return id;
 	}
+	public void setId(Long id) {
+		this.id = id;
+		
+	}
 	@Override
 	public String toString() {
 		return "StudentEntity [id=" + id + ", surname=" + surname + ", name=" + name + ", fatherName=" + fatherName
 				+ ", motherName=" + motherName + "]";
 	}
+
+	
 	
 }
