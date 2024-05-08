@@ -1,11 +1,6 @@
 package com.schooldata.restapi.schoolData.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -14,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class StudentEntity {
 	@ Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "Admission_Number")
 	private Long id;
 	@Column (name = "First_Name")
@@ -25,53 +20,15 @@ public class StudentEntity {
 	private String fatherName;
 	@Column (name = "Mother_Name")
 	private String motherName;
-	
-	public StudentEntity() {
-		
-	}
-	public StudentEntity(String surname, String name, String fatherName, String motherName) {
-		super();
-		this.surname = surname;
-		this.name = name;
-		this.fatherName = fatherName;
-		this.motherName = motherName;
-	}
-	public String getSurname() {
-		return surname;
-	}
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getFatherName() {
-		return fatherName;
-	}
-	public void setFatherName(String fatherName) {
-		this.fatherName = fatherName;
-	}
-	public String getMotherName() {
-		return motherName;
-	}
-	public void setMotherName(String motherName) {
-		this.motherName = motherName;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-		
-	}
-	@Override
-	public String toString() {
-		return "StudentEntity [id=" + id + ", surname=" + surname + ", name=" + name + ", fatherName=" + fatherName
-				+ ", motherName=" + motherName + "]";
-	}
+
+	private String addressLine1;
+	private String addressLine2;
+	private String city;
+	private String state;
+	private String country;
+
+	private Long pincode;
+
 
 	
 	
