@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.schooldata.restapi.schoolData.Entity.StudentEntity;
@@ -14,7 +16,7 @@ import com.schooldata.restapi.schoolData.Repository.StudentRepository;
 public class StudentService {
 
 	@Autowired
-	StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 	
 	public List<StudentEntity> findAll(){
 		return studentRepository.findAll();
@@ -30,23 +32,19 @@ public class StudentService {
 	}
 	
 	public void updateResource(Long id, StudentEntity student) {
-		List<StudentEntity> students = studentRepository.findAll();
-		Optional<StudentEntity> updatingResource = students.stream().filter(studentId -> studentId.getId().equals(id)).findFirst();
-		if (updatingResource.isPresent()) {
-			student.setId(id);
-			student.setSurname(student.getSurname());
-			student.setName(student.getName());
-			student.setFatherName(student.getFatherName());
-			student.setMotherName(student.getMotherName());
+		Optional<StudentEntity> studentEntity = studentRepository.findById(id);
+		if(studentEntity.isEmpty()){
 			studentRepository.save(student);
 		}
-		else if (updatingResource.isEmpty()) {
-			student.setId(id);
-			student.setSurname(student.getSurname());
-			student.setName(student.getName());
-			student.setFatherName(student.getFatherName());
-			student.setMotherName(student.getMotherName());
-			studentRepository.save(student);
+		else{
+			StudentEntity updatedStudent = studentEntity.get();
+			updatedStudent.setSurname(student.getSurname());
+			updatedStudent.setName(student.getName());
+			updatedStudent.setFatherName(student.getFatherName());
+			updatedStudent.setMotherName(student.getMotherName());
+			updatedStudent.setStandard(student.getStandard());
+			updatedStudent.setStudentType(student.getStudentType());
+			studentRepository.save(updatedStudent);
 		}
 	}
 
