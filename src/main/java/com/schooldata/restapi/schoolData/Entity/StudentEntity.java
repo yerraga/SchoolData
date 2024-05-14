@@ -1,78 +1,44 @@
 package com.schooldata.restapi.schoolData.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.schooldata.restapi.schoolData.Enum.Standard;
+import com.schooldata.restapi.schoolData.Enum.StudentType;
+import lombok.Data;
 
 @Entity
 @Table (name = "Students")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
+@Data
 public class StudentEntity {
 	@ Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "Admission_Number")
 	private Long id;
+	@NotNull(message = "First Name cannot be empty")
 	@Column (name = "First_Name")
 	private String surname;
+	@NotNull(message = "Last Name cannot be empty")
 	@Column (name = "Last_Name")
+	@NotNull(message = "First Name cannot be empty")
 	private String name;
+	@NotNull(message = "Father Name cannot be empty")
 	@Column (name = "Father_Name")
 	private String fatherName;
+	@NotNull(message = "Mother Name cannot be empty")
 	@Column (name = "Mother_Name")
 	private String motherName;
-	
-	public StudentEntity() {
-		
-	}
-	public StudentEntity(String surname, String name, String fatherName, String motherName) {
-		super();
-		this.surname = surname;
-		this.name = name;
-		this.fatherName = fatherName;
-		this.motherName = motherName;
-	}
-	public String getSurname() {
-		return surname;
-	}
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getFatherName() {
-		return fatherName;
-	}
-	public void setFatherName(String fatherName) {
-		this.fatherName = fatherName;
-	}
-	public String getMotherName() {
-		return motherName;
-	}
-	public void setMotherName(String motherName) {
-		this.motherName = motherName;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-		
-	}
-	@Override
-	public String toString() {
-		return "StudentEntity [id=" + id + ", surname=" + surname + ", name=" + name + ", fatherName=" + fatherName
-				+ ", motherName=" + motherName + "]";
-	}
-
-	
-	
+	@NotNull(message = "Address cannot be empty")
+	@Column (name = "Address")
+	private String address;
+	@NotNull(message = "Standard cannot be empty")
+	@Column(name = "Standard")
+	@Enumerated(EnumType.STRING)
+	private Standard standard;
+	@NotNull(message = "Student type cannot be empty")
+	@Column(name = "Student_Type")
+	@Enumerated(EnumType.STRING)
+	private StudentType studentType;
 }
