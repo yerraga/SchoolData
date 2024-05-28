@@ -7,6 +7,5 @@ public class StudentException extends Exception {
 
 	public static String notFountException() {
 		return "Student not found with ID";
-		
 	}
 }
