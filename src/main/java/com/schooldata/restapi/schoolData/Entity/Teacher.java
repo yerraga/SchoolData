@@ -26,7 +26,7 @@ public class Teacher {
     private String address;
     @Column(name = "Subject")
     private String subject;
-    @Column(name = "Class Teacher")
+    @Column(name = "`Class Teacher`")
     @Enumerated(EnumType.STRING)
     private Standard standard;
 }
