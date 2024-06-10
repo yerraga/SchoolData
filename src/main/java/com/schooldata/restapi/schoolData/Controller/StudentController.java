@@ -2,6 +2,7 @@ package com.schooldata.restapi.schoolData.Controller;
 
 import java.util.List;
 
+import com.schooldata.restapi.schoolData.Exceptions.StudentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class StudentController {
 	StudentService studentService;
 
 	@GetMapping("/students")
-	public List<StudentEntity> findAll() {
-		return studentService.findAll();
+	public ResponseEntity<List<StudentEntity>> findAll() {
+		return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
 
 	}
 
@@ -31,7 +32,7 @@ public class StudentController {
 	}
 
 	@GetMapping("students/{id}")
-	public StudentEntity findById(@PathVariable Long id) {
+	public StudentEntity findById(@PathVariable Long id) throws StudentException {
 		return studentService.findById(id);
 
 	}

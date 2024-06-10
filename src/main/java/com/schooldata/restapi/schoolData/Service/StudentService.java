@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import com.schooldata.restapi.schoolData.Exceptions.Handler.WebExceptionsHandler;
+import com.schooldata.restapi.schoolData.Exceptions.StudentException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.schooldata.restapi.schoolData.Entity.StudentEntity;
 import com.schooldata.restapi.schoolData.Repository.StudentRepository;
-
+@Slf4j
 @Service
 public class StudentService {
 
@@ -24,8 +27,19 @@ public class StudentService {
 	public StudentEntity addStudent(StudentEntity student) {
 	    return studentRepository.save(student);
 	}
-	public StudentEntity findById(Long id) {
-		return studentRepository.getById(id);
+	public StudentEntity findById(Long id) throws StudentException {
+		try {
+			Optional<StudentEntity> student = studentRepository.findById(id);
+			if(student.isEmpty()){
+				throw new StudentException(HttpStatus.NOT_FOUND, "Student not found with id: ");
+			}
+			else{
+				return student.get();
+			}
+        } catch (Exception e) {
+			log.error("An error occurred while fetching the student with id: {}", id, e);
+			throw new StudentException(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred", e.getMessage());
+		}
 	}
 	public void removeStudent(Long id) {
 		studentRepository.deleteById(id);
