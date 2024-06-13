@@ -46,10 +46,10 @@ public class Fee {
     @NotNull(message = "Tuition fee cannot be empty")
     @Column (name = "`Tuition fee`")
     private int tuitionFee;
-    //@NotNull(message = "Total fee  for days scholar cannot be empty")
+    @NotNull(message = "Total fee  for days scholar cannot be empty")
     @Column (name = "`Total Fee for Days Scholar`")
     private Long daysScholarFee;
-    //@NotNull(message = "Total fee for hostler cannot be empty")
+    @NotNull(message = "Total fee for hostler cannot be empty")
     @Column (name = "`Total Fee for Hostler`")
     private Long hostlerFee;
 
