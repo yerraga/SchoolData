@@ -12,13 +12,12 @@ public class WebExceptionsHandler {
 
     @ResponseBody
     @ExceptionHandler(StudentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleStudentException(final StudentException e) {
         log.error(e.getMessage() + " (" + e.getDetailedMessage() + ")", e);
-        return new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getDetailedMessage());
+        return new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getDetailedMessage());
     }
 
-    // Handle other exceptions here
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiError handleGlobalException(final Exception e) {

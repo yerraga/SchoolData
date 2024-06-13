@@ -61,31 +61,4 @@ public class ResultsEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "`Passed or Failed`")
     private PassedOrFailed passedOrFailed;
-
-    @PostLoad
-    @PostPersist
-    @PostUpdate
-    private void calculatePassedOrFailed() {
-        if (examination == Examinations.UNITTEST_I || examination == Examinations.UNITTEST_II ||
-                examination == Examinations.UNITTEST_III || examination == Examinations.UNITTEST_IV) {
-            if (standard != Standard.TEN && standard != Standard.NINE && standard != Standard.EIGHT) {
-                this.passedOrFailed = (teluguMarks < 15 || hindiMarks < 15 || englishMarks < 15 || mathematicsMarks < 15 ||
-                        scienceMarks < 15 || socialMarks < 15) ? PassedOrFailed.F : PassedOrFailed.P;
-            } else {
-                this.passedOrFailed = (teluguMarks < 15 || hindiMarks < 15 || englishMarks < 15 || mathematicsMarks < 15 ||
-                        physicsAndChemistryMarks < 15 || socialMarks < 15) ? PassedOrFailed.F : PassedOrFailed.P;
-            }
-        } else if (examination == Examinations.QUATERLY_EXAMINATIONS || examination == Examinations.HALF_YEARLY_EXAMINATIONS ||
-                examination == Examinations.ANUAL_EXAMINATIONS) {
-            if (standard != Standard.TEN && standard != Standard.NINE && standard != Standard.EIGHT) {
-                this.passedOrFailed = (teluguMarks < 50 || hindiMarks < 50 || englishMarks < 50 || mathematicsMarks < 50 ||
-                        scienceMarks < 50 || socialMarks < 50) ? PassedOrFailed.F : PassedOrFailed.P;
-            } else {
-                this.passedOrFailed = (teluguMarks < 50 || hindiMarks < 50 || englishMarks < 50 || mathematicsMarks < 50 ||
-                        physicsAndChemistryMarks < 50 || socialMarks < 50) ? PassedOrFailed.F : PassedOrFailed.P;
-            }
-        } else {
-            this.passedOrFailed = null;
-        }
-    }
 }
